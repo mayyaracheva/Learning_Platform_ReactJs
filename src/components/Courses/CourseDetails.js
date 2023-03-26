@@ -1,16 +1,19 @@
 import { NavLink, useParams, Link } from "react-router-dom";
 import CoursesService from "../services/ApiCoursesService";
 import {useState, useEffect} from 'react';
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const CourseDetails = () => {
 
     const {id} = useParams();
     const[course, setCourse] = useState([]);
     const currentUserRole = "Teacher";
+    const {user} = useContext(AuthContext);
 
     useEffect(() => {
         if(id){
-            CoursesService.getCourseById(id).then(data => {
+            CoursesService.getCourseById(id, user.email, user.password).then(data => {
                 console.log("coursebyId", data);
                 setCourse(data);
             }).catch(error => {

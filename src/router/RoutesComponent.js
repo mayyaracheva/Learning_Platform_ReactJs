@@ -1,10 +1,10 @@
 import React from 'react';
-import { useRoutes, Navigate } from 'react-router-dom';
+import { useRoutes } from 'react-router-dom';
 import HomePage from '../components/Home/HomePage';
 import AboutPage from '../components/Home/AboutPage';
 import Contact from '../components/Home/Contact';
-import Registration from '../components/Home/Authentication/Registration';
-import Login from '../components/Home/Authentication/Login';
+import Registration from '../components/Authentication/Registration';
+import Login from '../components/Authentication/Login';
 import Courses from '../components/Courses/Courses';
 import CourseDetails from '../components/Courses/CourseDetails';
 import CreateUpdateSection from '../components/Sections/CreateUpdateSection';

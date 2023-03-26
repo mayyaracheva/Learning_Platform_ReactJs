@@ -2,18 +2,18 @@ import {useEffect, useState} from 'react';
 import { Table } from 'react-bootstrap';
 import { Link, NavLink } from 'react-router-dom';
 import CoursesService from "../services/ApiCoursesService";
-import DeleteModal from './DeleteModal';
+import { useContext } from 'react';
+import { AuthContext } from '../../contexts/AuthContext';
 
 const Courses = () => {
 
 const[courses, setCourses] = useState([]);
 const[courseDeleted, setCourseDeleted] = useState(false);
-//const email = "Ragnar.Lodbrock@abv.com";
-//const password = "adminADMIN123?";
+const {user} = useContext(AuthContext);
 
 
 useEffect(() => {
-    CoursesService.getAllCourses()
+    CoursesService.getAllCourses(user.email, user.password)
     .then(data => {
         console.log("allcourses", data);
         setCourses(data);
@@ -24,7 +24,7 @@ useEffect(() => {
 },[courseDeleted])
 
 const deleteCourse = (courseId) => {
-    CoursesService.deleteCourse(courseId)
+    CoursesService.deleteCourse(courseId, user.email, user.password)
     .then(data => {
       console.log(data);
       setCourseDeleted(true);     

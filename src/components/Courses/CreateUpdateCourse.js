@@ -1,6 +1,8 @@
 import { useParams, NavLink, useNavigate } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import CoursesService from "../services/ApiCoursesService";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const newCourseModel = {
     Title: "",
@@ -13,11 +15,12 @@ const CreateUpdateCourse = () => {
     const navigate = useNavigate();
     const [isNew, setIsNew] = useState(true);
     const [course, setCourse] = useState(newCourseModel);
+    const {user} = useContext(AuthContext);
 
     useEffect(() => {
         if (id) {
             setIsNew(false);
-            CoursesService.getCourseById(id)
+            CoursesService.getCourseById(id, user.email, user.password)
                 .then(data => {
                     setCourse({ ...course, Title: data.title, Description: data.description, CategoryId: data.categoryId, PhotoURL: data.photoURL });
                 })
@@ -30,7 +33,7 @@ const CreateUpdateCourse = () => {
     const onSubmitHandler = (e) => {
         e.preventDefault();
         if (isNew) {
-            CoursesService.createCourse(course)
+            CoursesService.createCourse(course, user.email, user.password)
                 .then(response => {
                     console.log('response from create', response);
                     navigate("/Courses");
@@ -39,7 +42,7 @@ const CreateUpdateCourse = () => {
                     alert(error);                    
                 })
         } else {
-            CoursesService.updateCourse(id, course)
+            CoursesService.updateCourse(id, course, user.email, user.password)
                 .then(response => {
                     console.log('response from update', response);
                     navigate("/Courses");

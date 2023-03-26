@@ -8,5 +8,7 @@ export const endpoints = {
     createSection: 'http://localhost:5000/api/Courses/id/sections',
     updateSection: 'http://localhost:5000/api/Courses/courseId/sections/sectionId',
     deleteSection: 'http://localhost:5000/api/Courses/sections/id',
+    userlogin: 'http://localhost:5000/api/Users/Login',
+    userregistration: 'http://localhost:5000/api/Users',
     
 }
