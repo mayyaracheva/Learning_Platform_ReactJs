@@ -15,6 +15,7 @@ const Courses = () => {
             alert(error);
         })
     },[])
+    
     return(
         <div>
 <div className="container-fluid py-5">

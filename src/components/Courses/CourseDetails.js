@@ -22,7 +22,7 @@ const CourseDetails = () => {
         } else {
             alert('Missing parameter id');
         }
-    }, [id])
+    }, [id, user.email, user.password])
 
     const onSectionDelete = () => {
 
@@ -42,7 +42,7 @@ const CourseDetails = () => {
     <dl align="left" key={section.id}>
                 <dt>
                     {currentUserRole === "Teacher" ?
-                    <Link to={`/Section/Details/${course.id}/${section.id}`}>{section.title}</Link>
+                    <Link to={`/Section/Details/${course.id}/${section.id}`} state={{data: section}}>{section.title}</Link>
                     :
                     <p>{section.title}</p>
                    }

@@ -1,7 +1,7 @@
 export const endpoints = {
     getPublicCourses: 'http://localhost:5000/api/Home', 
-    getAllCourses: 'http://localhost:5000/api/Courses',   
-    getCourseById: 'http://localhost:5000/api/Courses',
+    getAllCourses: 'http://localhost:5000/api/Courses/Get',   
+    getCourseById: 'http://localhost:5000/api/Courses',   
     createCourse: 'http://localhost:5000/api/Courses',
     updateCourse: 'http://localhost:5000/api/Courses',
     deleteCourse: 'http://localhost:5000/api/Courses',
@@ -9,6 +9,6 @@ export const endpoints = {
     updateSection: 'http://localhost:5000/api/Courses/courseId/sections/sectionId',
     deleteSection: 'http://localhost:5000/api/Courses/sections/id',
     userlogin: 'http://localhost:5000/api/Users/Login',
-    userregistration: 'http://localhost:5000/api/Users',
+    userregistration: 'http://localhost:5000/api/Users',     
     
 }

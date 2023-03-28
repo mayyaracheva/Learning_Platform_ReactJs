@@ -2,18 +2,10 @@
 const handleAjaxError = (response) => {
     if(!response.ok) {
         throw Error(response.status)
-    }    
-    return response.json();
-}
+    }
 
-const handleAjaxErrorForText = (response) => {
-    if(!response.ok) {
-        throw Error(response.status)
-    } 
-   
-    return response.text();
+    return response.json();    
 }
-
 
 export default class ApiBaseService {   
 
@@ -43,7 +35,7 @@ export default class ApiBaseService {
         .then(handleAjaxError);
 
         return result;
-    }
+    }   
 
     static async post(url, email, password, formData) {
         const result = await fetch(url, { 
@@ -59,7 +51,7 @@ export default class ApiBaseService {
             referrerPolicy: "origin"           
 
         })
-        .then(handleAjaxErrorForText)
+        .then(handleAjaxError)
 
         return result;
     }
@@ -77,7 +69,7 @@ export default class ApiBaseService {
             body: JSON.stringify(formData),
             referrerPolicy: "origin"             
         })
-        .then(handleAjaxErrorForText)
+        .then(handleAjaxError)
 
         return result;
     }
@@ -93,7 +85,7 @@ export default class ApiBaseService {
                 'password': password
             }           
         })
-        .then(handleAjaxErrorForText);
+        .then(handleAjaxError);
 
         return result;
     }
@@ -127,7 +119,7 @@ export default class ApiBaseService {
             referrerPolicy: "origin"           
 
         })
-        .then(handleAjaxErrorForText)
+        .then(handleAjaxError)
 
         return result;
     }

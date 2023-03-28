@@ -10,8 +10,15 @@ import CourseDetails from '../components/Courses/CourseDetails';
 import CreateUpdateSection from '../components/Sections/CreateUpdateSection';
 import SectionDetails from '../components/Sections/SectionDetails';
 import CreateUpdateCourse from '../components/Courses/CreateUpdateCourse';
+import { useContext } from 'react';
+import { AuthContext } from '../contexts/AuthContext';
+import StudentCourses from '../components/Courses/StudentCourses';
+import StudentCourseDetails from '../components/Courses/StudentCourseDetails';
 
 const RoutesComponent = () => {
+
+    const {user, userLogged} = useContext(AuthContext);
+
     const routes = useRoutes([
         {
             path: "/",
@@ -35,11 +42,11 @@ const RoutesComponent = () => {
         },
         {
             path: "/Courses",
-            element: <Courses />
+            element: user.roleId === 1 ? <Courses /> : <StudentCourses />
         },
         {
             path: "/Courses/Details/:id",
-            element: <CourseDetails />
+            element: userLogged ? (user.roleId === 1 ? <CourseDetails /> : <StudentCourseDetails />) : <Login/>
         },
         {
             path: "/Courses/Update/:id",

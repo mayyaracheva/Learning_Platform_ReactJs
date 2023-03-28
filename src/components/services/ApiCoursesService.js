@@ -12,6 +12,16 @@ export default class CoursesService extends ApiBaseService {
         return data;
     }
 
+    static async unenroll(id, email, password) {
+        const data = await super.get(`http://localhost:5000/api/Courses/${id}/unenroll`, email, password);
+        return data;
+    }
+
+    static async getCourseDetails(id, email, password) {
+        const data = await super.get(`http://localhost:5000/api/Courses/${id}/details`, email, password);
+        return data;
+    }
+
     static async createCourse(formData, email, password) {
         const data = await super.post(endpoints.createCourse, email, password, formData);
         return data;

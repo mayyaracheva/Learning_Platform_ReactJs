@@ -21,7 +21,7 @@ useEffect(() => {
     .catch(error => {
         alert(error);
     })
-},[courseDeleted])
+},[courseDeleted, user.email, user.password])
 
 const deleteCourse = (courseId) => {
     CoursesService.deleteCourse(courseId, user.email, user.password)
@@ -34,8 +34,6 @@ const deleteCourse = (courseId) => {
   })
 
   }
-
-
 
     return(
         <div>
@@ -65,11 +63,11 @@ const deleteCourse = (courseId) => {
                 {courses && courses.map((c, index) => 
                     <tr key={c.id}>
                             <td>{index + 1}</td>
-                            <td><Link to={`/Courses/Details/${c.id}`}>{c.title}</Link></td>
+                            <td><Link to={`/Courses/Details/${c.courseId}`}>{c.title}</Link></td>
                             <td>{c.description}</td>
                             <td>                            
                                 <div className ="btn-group">
-                                <Link to={`/Courses/Update/${c.id}`}><button title="Edit" className="btn btn-warning mt-3 ms-1" data-toggle="tooltip">Edit</button></Link>
+                                <Link to={`/Courses/Update/${c.courseId}`}><button title="Edit" className="btn btn-warning mt-3 ms-1" data-toggle="tooltip">Edit</button></Link>
                                 {' '}
                                 <button className="btn btn-danger mt-3 ms-1" onClick={() => deleteCourse(c.id)}>Delete</button> 
                                 </div>             

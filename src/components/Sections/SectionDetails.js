@@ -1,25 +1,15 @@
-import { useParams, Link } from "react-router-dom";
-import {useState, useEffect} from 'react';
-import CoursesService from "../services/ApiCoursesService";
+import { useParams, Link, useLocation } from "react-router-dom";
 
 const SectionDetails = () => {
-    const {courseId, sectionId} = useParams();
-    const {section, setSection} = useState({});
-    //const email = "Ragnar.Lodbrock@abv.com";
-    //const password = "adminADMIN123?";
-
-    useEffect(() => {
-        CoursesService.getAllCourseSections(courseId)
-        .then(data => {
-            setSection(section => data.filter(s => s.Id === sectionId))
-        })
-    },[courseId, sectionId, setSection])
+    const {courseId} = useParams();
+    const location = useLocation(); 
+    const section = location.state?.data;
 
     return(
         <div>
-<h2>{section.Title}</h2>
+<h2>{section && section.title}</h2>
 <br />
-<p class="margin12">{section.Content}</p>
+<p className="margin12">{section && section.content}</p>
 
 <Link to={`/Courses/Details/${courseId}`}>Go Back</Link>
         </div>
