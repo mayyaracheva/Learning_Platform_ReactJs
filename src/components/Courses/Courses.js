@@ -8,15 +8,17 @@ import { AuthContext } from '../../contexts/AuthContext';
 const Courses = () => {
 
 const[courses, setCourses] = useState([]);
+const [filteredCourses, setFilteredCourses] = useState([]);
 const[courseDeleted, setCourseDeleted] = useState(false);
 const {user} = useContext(AuthContext);
-
+const [query, setQuery] = useState("");
 
 useEffect(() => {
     CoursesService.getAllCourses(user.email, user.password)
     .then(data => {
         console.log("allcourses", data);
         setCourses(data);
+        setFilteredCourses(data);
     })
     .catch(error => {
         alert(error);
@@ -35,6 +37,19 @@ const deleteCourse = (courseId) => {
 
   }
 
+  useEffect(() => {
+    if(query !== "") {
+        let filteredTitles = courses.filter((c) =>
+        c.title.toLowerCase().includes(query.toLowerCase()))
+        if(filteredTitles.length > 0) {
+            setFilteredCourses(filteredTitles);
+        }       
+    } else {
+        setFilteredCourses(courses);
+    }
+           
+  },[courses, query])  
+
     return(
         <div>
 <div className="container-fluid py-5">
@@ -46,8 +61,8 @@ const deleteCourse = (courseId) => {
 
         <form asp-controller="Courses" asp-action="Index" method="get" className="form-inline">
             Find course by title:
-            <input type="text" className="form-control" name="Title" />
-            <input type="submit" value="Search" className="btn btn-primary" />
+            {' '}
+            <input type="text" onChange={(e) => setQuery(e.target.value)} className="form-control" name="Title" />           
         </form>
 
         <Table className="table table-hover">
@@ -60,8 +75,8 @@ const deleteCourse = (courseId) => {
                 </tr>
             </thead>
             <tbody>
-                {courses && courses.map((c, index) => 
-                    <tr key={c.id}>
+                {filteredCourses && filteredCourses.map((c, index) => 
+                    <tr key={c.courseId}>
                             <td>{index + 1}</td>
                             <td><Link to={`/Courses/Details/${c.courseId}`}>{c.title}</Link></td>
                             <td>{c.description}</td>
