@@ -71,6 +71,7 @@ const deleteCourse = (courseId) => {
                     <th scope="col">#</th>
                     <th scope="col">Title</th>
                     <th scope="col">Content</th>
+                    <th scope="col">Category</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
@@ -80,6 +81,7 @@ const deleteCourse = (courseId) => {
                             <td>{index + 1}</td>
                             <td><Link to={`/Courses/Details/${c.courseId}`}>{c.title}</Link></td>
                             <td>{c.description}</td>
+                            <td>{c.categoryName}</td>
                             <td>                            
                                 <div className ="btn-group">
                                 <Link to={`/Courses/Update/${c.courseId}`}><button title="Edit" className="btn btn-warning mt-3 ms-1" data-toggle="tooltip">Edit</button></Link>

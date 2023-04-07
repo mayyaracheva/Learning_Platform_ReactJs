@@ -7,7 +7,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 const newCourseModel = {
     Title: "",
     Description: "",
-    CategoryId: 1,
+    CategoryId: 0,
     PhotoURL: ""
 }
 const CreateUpdateCourse = () => {
@@ -15,7 +15,8 @@ const CreateUpdateCourse = () => {
     const navigate = useNavigate();
     const [isNew, setIsNew] = useState(true);
     const [course, setCourse] = useState(newCourseModel);
-    const {user} = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
+    const [errors, setErrors] = useState({});
 
     useEffect(() => {
         if (id) {
@@ -30,41 +31,68 @@ const CreateUpdateCourse = () => {
         }
     }, [id])
 
+    const formIsvalid = () => {
+        const _errors = {};
+
+        if (course.CategoryId === 0 || course.CategoryId === -1) {
+            _errors.CategoryId = "Please select course category";
+        }
+
+        if (course.Title === "") {
+            _errors.Title = "Please provide course title";
+        }
+
+        if (course.Description === "") {
+            _errors.Description = "Please provide course description";
+        }
+
+        if (course.PhotoURL === "") {
+            _errors.PhotoURL = "Please provide course image";
+        }
+
+        setErrors(_errors);
+        return Object.keys(_errors).length === 0;
+    }
+
     const onSubmitHandler = (e) => {
         e.preventDefault();
+
+        if (!formIsvalid()) {
+            return
+        }
+      
         if (isNew) {
             CoursesService.createCourse(course, user.email, user.password)
                 .then(response => {
-                    console.log('response from create', response);
+                    alert(response);
                     navigate("/Courses");
                 })
                 .catch(error => {
-                    alert(error);                    
+                    alert(error);
                 })
         } else {
             CoursesService.updateCourse(id, course, user.email, user.password)
                 .then(response => {
-                    console.log('response from update', response);
-                    navigate("/Courses");
+                    alert(response);
+                    navigate(`/Courses/Details/${id}`);
                 })
                 .catch(error => {
                     alert(error);
                 })
         }
     }
-  
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        if (name === "CategoryId") {
-            setCourse(course => ({ ...course, [name]: Number(value) }))
-        } else {
-            setCourse(course => ({ ...course, [name]: value }))
-        }
-        console.log(course);
+        setCourse(course => ({ ...course, [name]: value }));
+    }
+
+    const onCategorySelect = (e) => {        
+        const { name, value } = e.target;
+        setCourse(course => ({ ...course, [name]: Number(value) }))
     }
     return (
         <div>
-
             <h2>{isNew ? "Create new course" : `Edit Course:${course.Title}`}</h2>
             <form onSubmit={onSubmitHandler}>
                 <div className="form-group">
@@ -94,13 +122,15 @@ const CreateUpdateCourse = () => {
                     <br />
                     <select
                         name="CategoryId"
-                        value={course.CategoryId}
-                        onChange={(e) => handleInputChange(e)}
-                        className="custom-select">
-                        <option
-                            value="1">Public</option>
-                        <option
-                            value="2">Private</option>
+                        value={course.CategoryId ?? -1}
+                        onChange={(e) => onCategorySelect(e)}
+                        className="custom-select"
+                    >
+                        <option value={-1}>- Please, select -</option>
+                        <option key={`public_course`}
+                            value={1}>Public</option>
+                        <option key={'private_course'}
+                            value={2}>Private</option>
                     </select>
                 </div>
                 <div className="form-group">
@@ -114,12 +144,23 @@ const CreateUpdateCourse = () => {
                         className="form-control"
                     />
                 </div>
-                <div>
-                    <button className="btn-primary">Save</button>
+                <div className="mb-4 mt-4">
+                    <button className="btn btn-primary ms-3 me-3">Save</button>
+                    <NavLink to="/Courses" className="btn btn-secondary ms-3 me-3">Go Back</NavLink>
                 </div>
-            </form>
-
-            <NavLink to="/Courses" className="nav">Go Back</NavLink>
+                {errors.CategoryId && (
+                    <div className="col-sm-6 text-danger">{errors.CategoryId}</div>
+                )}
+                {errors.Title && (
+                    <div className="col-sm-6 text-danger">{errors.Title}</div>
+                )}
+                {errors.Description && (
+                    <div className="col-sm-6 text-danger">{errors.Description}</div>
+                )}
+                {errors.PhotoURL && (
+                    <div className="col-sm-6 text-danger">{errors.PhotoURL}</div>
+                )}
+            </form>            
         </div>
     );
 };

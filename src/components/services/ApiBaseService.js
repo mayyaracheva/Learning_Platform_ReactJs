@@ -124,4 +124,35 @@ export default class ApiBaseService {
         return result;
     }
 
+    static async enrollGet(url) {
+        const result = await fetch(url, {                             
+            method: 'GET',
+            headers: {                
+                'Accept': 'application/json', 
+                'Content-Type': 'application/json; charset=UTF-8'
+            }                          
+
+        })
+        .then(handleAjaxError)
+
+        return result;
+    }
+
+    static async enrollPost(url, formData) {
+        const result = await fetch(url, { 
+            mode: 'cors',                    
+            method: 'POST',
+            headers: {                
+                'Accept': 'application/json', 
+                'Content-Type': 'application/json; charset=UTF-8'
+            },
+            body: JSON.stringify(formData),
+            referrerPolicy: "origin"           
+
+        })
+        .then(handleAjaxError)
+
+        return result;
+    }
+
 }

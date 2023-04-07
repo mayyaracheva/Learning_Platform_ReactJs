@@ -14,6 +14,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
 import StudentCourses from '../components/Courses/StudentCourses';
 import StudentCourseDetails from '../components/Courses/StudentCourseDetails';
+import Enroll from '../components/Courses/Enroll';
 
 const RoutesComponent = () => {
 
@@ -51,6 +52,10 @@ const RoutesComponent = () => {
         {
             path: "/Courses/Update/:id",
             element: <CreateUpdateCourse />
+        },
+        {
+            path: "/Courses/Enroll/:id",
+            element: <Enroll />
         },
         {
             path: "/Courses/Create",
