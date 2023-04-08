@@ -13,8 +13,7 @@ const StudentCourseDetails = () => {
 
     useEffect(() => {
         if (id) {
-            CoursesService.getCourseDetails(id, user.email, user.password).then(data => {
-                console.log("coursebyId", data);
+            CoursesService.getCourseDetails(id, user.email, user.password).then(data => {               
                 setCourse(data);
             }).catch(error => {
                 alert(error);

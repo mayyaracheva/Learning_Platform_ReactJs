@@ -14,8 +14,7 @@ const Enroll = () => {
         if (id) {
             CoursesService.getUsersToEnroll(id)
                 .then(data => {
-                    setUsers(data);
-                    console.log('users to enroll', data);
+                    setUsers(data);                    
                 })
                 .catch(error => {
                     alert(error);
@@ -32,14 +31,13 @@ const Enroll = () => {
         })
     }
 
-    const onUserSelected = (e) => {
-        console.log('selected users', usersToEnroll);
+    const onUserSelected = (e) => {        
         const {value, checked} = e.target;
         let selected = Number(value);       
         if(!usersToEnroll.includes(selected) && checked){
             setUsersToEnroll([...usersToEnroll,selected])
         } else if (usersToEnroll.includes(selected) && !checked) {           
-            setUsersToEnroll(usersToEnroll => usersToEnroll.map(u => u.id !== selected))
+            setUsersToEnroll(usersToEnroll => usersToEnroll.filter(u => u !== selected))
         } else {
             return
         }

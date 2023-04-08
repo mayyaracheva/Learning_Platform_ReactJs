@@ -13,8 +13,7 @@ const CourseDetails = () => {
 
     useEffect(() => {
         if(id){
-            CoursesService.getCourseById(id, user.email, user.password).then(data => {
-                console.log("coursebyId", data);
+            CoursesService.getCourseById(id, user.email, user.password).then(data => {               
                 setCourse(data);
             }).catch(error => {
                 alert(error);
@@ -63,7 +62,7 @@ const CourseDetails = () => {
 <h4>Students</h4>
 <ul>
     {course && course.users && course.users.map(user => 
-    <li className="margin12">{user.firstName} {user.lastName}</li>
+    <li key={`Enroll:${user.firstName}${user.lastName}`} className="margin12">{user.firstName} {user.lastName}</li>
     ) 
     }
 </ul>

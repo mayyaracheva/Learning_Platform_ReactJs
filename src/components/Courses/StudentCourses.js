@@ -12,8 +12,7 @@ const StudentCourses = () => {
 
     useEffect(() => {
         CoursesService.getAllCourses(user.email, user.password)
-            .then(data => {
-                console.log("allcourses", data);
+            .then(data => {              
                 setStudentCourses(data);
             })
             .catch(error => {

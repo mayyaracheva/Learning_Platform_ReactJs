@@ -24,8 +24,7 @@ function App() {
     UserService.loginUser(user)
     .then(response => {
       setUser(response); 
-      setUserLogged(true);     
-      console.log('user from api', response);      
+      setUserLogged(true);
     })
     .catch(error => alert(error));
 }

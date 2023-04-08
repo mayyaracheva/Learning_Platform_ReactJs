@@ -7,8 +7,7 @@ const Courses = () => {
     const[publicCourses, setPublicCourses] = useState([]);
     useEffect(() => {
         HomeService.getPublicCourses()
-        .then(data => {
-            console.log(data);
+        .then(data => {           
             setPublicCourses(data);
         })
         .catch(error => {

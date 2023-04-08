@@ -19,8 +19,7 @@ const [query, setQuery] = useState("");
 useEffect(() => {
     setIsLoading(true);
     CoursesService.getAllCourses(user.email, user.password)
-    .then(data => {
-        console.log("allcourses", data);
+    .then(data => {     
         setCourses(data);
         setFilteredCourses(data);
         setIsLoading(false);

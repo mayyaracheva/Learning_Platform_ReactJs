@@ -2532,8 +2532,7 @@
 					} else {
 						this.stop();
 					}
-				} else if (e.namespace && e.property.name === 'position') {
-					//console.log('play?', e);
+				} else if (e.namespace && e.property.name === 'position') {					
 					if (this._core.settings.autoplay) {
 						this._setAutoPlayInterval();
 					}
