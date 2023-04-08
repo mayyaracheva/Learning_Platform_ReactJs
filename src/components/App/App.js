@@ -25,7 +25,7 @@ function App() {
     .then(response => {
       setUser(response); 
       setUserLogged(true);     
-      console.log('user form api', response);      
+      console.log('user from api', response);      
     })
     .catch(error => alert(error));
 }

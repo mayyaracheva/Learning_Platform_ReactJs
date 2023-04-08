@@ -14,10 +14,17 @@ const Registration = () => {
 
     const navigate = useNavigate();
     const [newUser, setNewUser] = useState(initialValues);
+    const [image, setImage] = useState("");
 
     const handleRegisterFormInput = (e) => {
-        const { name, value } = e.target;
-        setNewUser(user => ({ ...user, [name]: value }));       
+        const { name, value, files } = e.target;
+        if(name === "ImageUrl") {
+            //setImage(files[0].name);
+            let imageURI = URL.createObjectURL(files[0]);
+            setNewUser(user => ({ ...user, [name]: imageURI }));   
+        } else {
+            setNewUser(user => ({ ...user, [name]: value }));    
+        }          
     }
 
     const onRegisterFormSubmit = (e) => {
@@ -88,10 +95,11 @@ const Registration = () => {
                         <div className="custom-file">
                             <input 
                             htmlFor="ImageFile" 
+                            type="file"
                             className="custom-file-input" 
                             id="customFile" 
                             name="ImageUrl"
-                            value={newUser.ImageUrl}
+                            value={""}
                             onChange={(e) => handleRegisterFormInput(e)}/>
                             <label className="custom-file-label" htmlFor="customFile">Choose File</label>
                         </div>

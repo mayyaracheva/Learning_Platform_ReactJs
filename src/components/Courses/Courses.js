@@ -4,23 +4,29 @@ import { Link, NavLink } from 'react-router-dom';
 import CoursesService from "../services/ApiCoursesService";
 import { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
+import LoaderWrapper from '../Loader/LoaderWrapper';
+import DimWrapper from '../Loader/DimWrapper';
 
 const Courses = () => {
 
 const[courses, setCourses] = useState([]);
 const [filteredCourses, setFilteredCourses] = useState([]);
 const[courseDeleted, setCourseDeleted] = useState(false);
+const [isLoading, setIsLoading] = useState(false);
 const {user} = useContext(AuthContext);
 const [query, setQuery] = useState("");
 
 useEffect(() => {
+    setIsLoading(true);
     CoursesService.getAllCourses(user.email, user.password)
     .then(data => {
         console.log("allcourses", data);
         setCourses(data);
         setFilteredCourses(data);
+        setIsLoading(false);
     })
     .catch(error => {
+        setIsLoading(false);
         alert(error);
     })
 },[courseDeleted, user.email, user.password])
@@ -96,6 +102,8 @@ const deleteCourse = (courseId) => {
   
     </div>
 </div>
+<LoaderWrapper isLoading={isLoading}/>
+<DimWrapper isLoading={isLoading}/>
         </div>
     )
 };
