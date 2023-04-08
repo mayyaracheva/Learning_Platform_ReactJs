@@ -25,7 +25,7 @@ Password = "adminADMIN123?"
  - Private part: 
  Accessible only if the user is authenticated.
  
- Students are able to see the courses that they are enrolled in (both public/private). Private courses are visible only if the student is enrolled.
+ Once authenticated, Students are able to see the courses that they are enrolled in (both public/private). Private courses are visible only if the student is     enrolled.
  Students must be able to see available public courses – if they visit one, they are automatically enrolled in it (on first visit).
  
  Teachers are able to see all courses and edit/delete them or create a new course.
