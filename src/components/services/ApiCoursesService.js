@@ -38,7 +38,7 @@ export default class CoursesService extends ApiBaseService {
     }
 
     static async deleteCourse(id, email, password) {
-        const data = await super.delete(`${endpoints.getAllCourses}/${id}`, email, password);
+        const data = await super.delete(`${endpoints.deleteCourse}/${id}`, email, password);
         return data;
     }
 

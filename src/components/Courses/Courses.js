@@ -34,7 +34,7 @@ useEffect(() => {
 const deleteCourse = (courseId) => {
     CoursesService.deleteCourse(courseId, user.email, user.password)
     .then(data => {
-      console.log(data);
+      alert(data);
       setCourseDeleted(true);     
   })
   .catch(error => {
@@ -92,7 +92,7 @@ const deleteCourse = (courseId) => {
                                 <div className ="btn-group">
                                 <Link to={`/Courses/Update/${c.courseId}`}><button title="Edit" className="btn btn-warning mt-3 ms-1" data-toggle="tooltip">Edit</button></Link>
                                 {' '}
-                                <button className="btn btn-danger mt-3 ms-1" onClick={() => deleteCourse(c.id)}>Delete</button> 
+                                <button className="btn btn-danger mt-3 ms-1" onClick={() => deleteCourse(c.courseId)}>Delete</button> 
                                 </div>             
                             </td>
                     </tr>

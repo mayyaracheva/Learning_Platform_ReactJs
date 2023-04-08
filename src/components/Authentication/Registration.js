@@ -13,13 +13,11 @@ const initialValues = {
 const Registration = () => {
 
     const navigate = useNavigate();
-    const [newUser, setNewUser] = useState(initialValues);
-    const [image, setImage] = useState("");
+    const [newUser, setNewUser] = useState(initialValues);   
 
     const handleRegisterFormInput = (e) => {
         const { name, value, files } = e.target;
-        if(name === "ImageUrl") {
-            //setImage(files[0].name);
+        if(name === "ImageUrl") {           
             let imageURI = URL.createObjectURL(files[0]);
             setNewUser(user => ({ ...user, [name]: imageURI }));   
         } else {
