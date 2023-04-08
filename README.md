@@ -15,7 +15,7 @@ Password = "adminADMIN123?"
  ## Brief project description:
  
  The project is a system that can be used by trainers to deliver online learning content.
- The system consists of three main entities – Users (either teacher or student), Courses (either public or private) and Sections
+ The system consists of three main entities – Users (either teacher or student), Courses (either public or private) and Sections.
  Teachers can create courses, add sections to them and optionally enroll students.
  Students can browse available courses and view their content, as well as enroll/unenroll from a course.
  
